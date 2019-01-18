@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "database.js",
-  "dependencies": {},
+  "dependencies": {
+    "commander": "^2.19.0"
+  },
   "devDependencies": {
     "mocha": "^5.2.0"
   },

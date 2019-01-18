@@ -19,11 +19,12 @@ const DEFAULT_ITEM_ATUALIZAR = {
 describe('Suite de manipulação de Herois', () => {
 
     before(async () => {
+        await database.remover();
         await database.cadastrar(DEFAULT_ITEM_CADASTRAR)
         await database.cadastrar(DEFAULT_ITEM_ATUALIZAR)
     })
 
-    it('deve pesquisar um heroi usando arquivos', async () => {
+    it('deve listar um heroi pelo id', async () => {
         const expected = DEFAULT_ITEM_CADASTRAR
         const [resultado] = await database.listar(expected.id)
         deepEqual(resultado, expected)
