@@ -18,6 +18,7 @@ describe('Postgres Strategy', function ()  {
     
     this.beforeAll(async () => {
         await context.connect()
+        await context.delete()
         await context.create(MOCK_HEROI_ATUALIZAR)
     })
 
@@ -68,6 +69,12 @@ describe('Postgres Strategy', function ()  {
                 dataNascimento: '1988-01-01'                
             }
         */
+    })
+
+    it ('remover por id', async () => {
+        const [item] = await context.read({})
+        const result = await context.delete(item.id)
+        assert.deepEqual(result, 1)
     })
     
 })
