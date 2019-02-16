@@ -50,6 +50,10 @@ class Postgres extends ICrud {
         return dataValues;
     }
 
+    async update(id, item) {
+        return this._herois.update(item, { where: { id }})
+    }
+
     async read(item = {}) {
         return this._herois.findAll({ where: item, raw: true})
     }
