@@ -72,6 +72,10 @@ class MongoDb extends ICrud {
        return this._herois.find(item).skip(skip).limit(skip);
     }
 
+    update(id, item) {
+        return this._herois.updateOne({ _id: id}, {$set: item})
+    }
+
 }
 
 module.exports = MongoDb

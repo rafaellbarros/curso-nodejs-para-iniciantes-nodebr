@@ -12,6 +12,13 @@ const MOCK_HEROI_DEFAULT = {
     poder: 'Super teia'
 }
 
+const MOCK_HEROI_ATUALIZAR = {
+    nome: `Patolino-${Date.now()}`,
+    poder: 'Velocidade'
+}
+
+let MOCK_HEROI_ID = ''
+
 const context = new Context(new MongoDb())
 
 describe('MongoDB Suite de testes', function () {
@@ -19,6 +26,8 @@ describe('MongoDB Suite de testes', function () {
   this.beforeAll(async () => {
     await context.connect()
     await context.create(MOCK_HEROI_DEFAULT)
+    const result = await context.create(MOCK_HEROI_ATUALIZAR)
+    MOCK_HEROI_ID = result._id
   })  
 
 
@@ -36,7 +45,7 @@ describe('MongoDB Suite de testes', function () {
     assert.deepEqual( { nome, poder }, MOCK_HEROI_CADASTRAR)
   });
 
-  it.only('listar', async () => {
+  it('listar', async () => {
       const [{nome, poder}] = await context.read({ nome: MOCK_HEROI_DEFAULT.nome })
       const result = {
         nome, poder
@@ -44,6 +53,14 @@ describe('MongoDB Suite de testes', function () {
 
      assert.deepEqual(result, MOCK_HEROI_DEFAULT)
 
+  });
+
+  it.only('atualizar', async () => {
+      const result = await context.update(MOCK_HEROI_ID, {
+          nome: 'Pernalonga'
+      })
+
+      assert.deepEqual(result.nModified, 1)
   });
 
 })
