@@ -7,12 +7,18 @@ const MOCK_HEROI_CADASTRAR = {
     poder: 'Laço Mágico'
 }
 
+const MOCK_HEROI_DEFAULT = {
+    nome: `Home Aranha-${Date.now()}`,
+    poder: 'Super teia'
+}
+
 const context = new Context(new MongoDb())
 
 describe('MongoDB Suite de testes', function () {
 
   this.beforeAll(async () => {
     await context.connect()
+    await context.create(MOCK_HEROI_DEFAULT)
   })  
 
 
@@ -28,6 +34,16 @@ describe('MongoDB Suite de testes', function () {
   it('cadastrar', async () => {
     const { nome, poder } = await context.create(MOCK_HEROI_CADASTRAR)
     assert.deepEqual( { nome, poder }, MOCK_HEROI_CADASTRAR)
+  });
+
+  it.only('listar', async () => {
+      const [{nome, poder}] = await context.read({ nome: MOCK_HEROI_DEFAULT.nome })
+      const result = {
+        nome, poder
+      }
+
+     assert.deepEqual(result, MOCK_HEROI_DEFAULT)
+
   });
 
 })

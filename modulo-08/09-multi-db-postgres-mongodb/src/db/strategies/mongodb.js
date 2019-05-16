@@ -68,6 +68,10 @@ class MongoDb extends ICrud {
        return this._herois.create(item)
     }
 
+    read(item, skip=0, limit=10) {
+       return this._herois.find(item).skip(skip).limit(skip);
+    }
+
 }
 
 module.exports = MongoDb
