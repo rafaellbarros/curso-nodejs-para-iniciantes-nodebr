@@ -1,0 +1,4 @@
+heroku apps:list
+heroku apps:create cursonodebr-rafaelbarros
+heroku git:remote --app cursonodebr-rafaelbarros
+heroku logs
